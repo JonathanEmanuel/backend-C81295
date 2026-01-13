@@ -1,6 +1,6 @@
 ## Actividad de clase
 
-**Descripción de la actividad.**
+**Descripción de la actividad**
 
 Dados los objetos indicados en la siguiente diapositiva:
 Realizar una lista nueva  (array) que contenga todos los tipos de productos (no cantidades), consejo: utilizar Object.keys y Array.includes. Mostrar el array por consola.

@@ -2,10 +2,10 @@ const resultado = 2 ** 3;
 console.log('Potencias: ', resultado);
 
 const lenguajes = ["HTML", "CSS", "JavaScript" ]; // Array
-let filtro = 'JavaScript';
+let filtro = '    JavaScript';
 
 
-if( lenguajes.includes( filtro ) ) {
+if( lenguajes.includes( filtro.trim() ) ) {
     console.log('Esta Capacitado!');
 }
 
@@ -37,3 +37,14 @@ const nuevasLetras = ['d', 'e'];
 
 const finales = [ ...letras,'f', 'g' ];
 console.log('Letras' , finales)
+
+
+const email = '    juan@code.edu.ar';
+const emailNormalizado = email.trim();
+console.log( email, emailNormalizado);
+
+// Operador ?? vs ||
+const stock = 0;
+console.log( stock || 10 ); // retorna la parte derecha si 0, null, undefined
+console.log( stock ?? 20 );   // Retorna la parte derecha si es null, undefined
+
