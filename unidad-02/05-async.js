@@ -20,7 +20,6 @@ const realizarCalculo =  async () => {
     } finally {
         console.log('Finalizo el proceso')
     }
-
 }
 
 realizarCalculo();
