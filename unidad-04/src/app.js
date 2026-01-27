@@ -1,5 +1,4 @@
 import express from 'express'
-
 import UsersManager from './UsersManger.js';
 
 const manager = new UsersManager()
@@ -50,6 +49,7 @@ app.get('/api/users/:id', (req, res) => {
 // Guardamos un usuario
 app.post('/api/users', (req, res) => {
     const {name, email} = req.body;
+
     const id =  users.length + 1;
     users.push({
         id,

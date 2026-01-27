@@ -1,9 +1,7 @@
 
 import crypto from 'crypto'
 import fs from 'fs/promises'
-
-const path = 'data/users.json';
-
+const path = './data/users.json';
 
 class UsersManager {
     constructor(){
@@ -11,7 +9,7 @@ class UsersManager {
     }
 
     async createUser(user) {
-        const { firtsName, lastName, userName, password } = user;
+        const { name, email, password } = user;
         const hash = crypto.createHash('sha256');
         const id = crypto.randomUUID();
 
@@ -20,17 +18,13 @@ class UsersManager {
 
         this.users.push({
             id,
-            firtsName,
-            lastName,
-            userName,
+            name,
+            email,
             password: passwordHash
         });
-
         const text = JSON.stringify( this.users, null, 2)
-
         await fs.writeFile(path, text);
         
-
     }
 
     async getUsers() {
