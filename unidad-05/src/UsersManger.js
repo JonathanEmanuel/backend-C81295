@@ -28,12 +28,8 @@ class UsersManager {
         if(exists){
             throw new Error('El email ya existe');
         }
-
-        const hash = crypto.createHash('sha256');
         const _id = crypto.randomUUID();
-
-        hash.update(password);
-        const passwordHash = hash.digest('hex');
+        const passwordHash = crypto.createHash('sha256').update(password).digest('hex');
 
         const newUser = {
             _id,
@@ -43,7 +39,6 @@ class UsersManager {
             role
         }
         this.users.push(newUser);
-        console.log(this.users)
         const text = JSON.stringify( this.users, null, 2)
         await fs.writeFile(this.path, text);
         const data = { _id, name, email} 
