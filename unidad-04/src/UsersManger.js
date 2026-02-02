@@ -1,46 +1,90 @@
 
 import crypto from 'crypto'
 import fs from 'fs/promises'
-const path = './data/users.json';
 
 class UsersManager {
-    constructor(){
-        this.users = []
+    constructor(path){
+        this.path = path;
+        this.users = [];
+        this._loaded = false;
+    }
+
+    async init() {
+        if (this._loaded) return;
+        this.users = await this.getUsers();
+        this._loaded = true;
     }
 
     async createUser(user) {
-        const { name, email, password } = user;
+        await this.init();
+
+        const { name, email, password, role='client' } = user;
+        // Validamos campos obligatorios
+        if( !name || !email || !password) {
+            throw new Error('name, email y password son Obligatorios');
+        }
+        // Verificamos que email no exista
+        const exists = this.users.some( u => u.email === email);
+        if(exists){
+            throw new Error('El email ya existe');
+        }
+
         const hash = crypto.createHash('sha256');
-        const id = crypto.randomUUID();
+        const _id = crypto.randomUUID();
 
         hash.update(password);
-        let passwordHash = hash.digest('hex');
+        const passwordHash = hash.digest('hex');
 
-        this.users.push({
-            id,
+        const newUser = {
+            _id,
             name,
             email,
-            password: passwordHash
-        });
+            password: passwordHash,
+            role
+        }
+        this.users.push(newUser);
+        console.log(this.users)
         const text = JSON.stringify( this.users, null, 2)
-        await fs.writeFile(path, text);
+        await fs.writeFile(this.path, text);
+        const data = { _id, name, email} 
+        return data;
         
     }
 
     async getUsers() {
         try {        
-            const data = await fs.readFile( path, 'utf-8');
+            const data = await fs.readFile( this.path, 'utf-8');
             this.users = JSON.parse(data);
             return this.users
         } catch (error) {
             console.error(error)
             return []
         }
+    }
+    async deleteUserById(id) {
+        await this.init();
 
+        const index = this.users.findIndex(u => u.id === id);
+        if (index === -1) {
+            return null;
+        }
+
+        const [deletedUser] = this.users.splice(index, 1);
+
+        const text = JSON.stringify(this.users, null, 2);
+        await fs.writeFile(this.path, text);
+
+        const { password, ...safeUser } = deletedUser;
+        return safeUser;
     }
 
-    auth(userName, password){
-        
+    async auth(email, password){
+        await this.init();
+
+        const user = this.users.find( u => u.email === email );
+        if( !user) return null;
+
+
     }
 }
 

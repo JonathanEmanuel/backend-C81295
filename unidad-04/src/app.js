@@ -1,7 +1,7 @@
 import express from 'express'
 import UsersManager from './UsersManger.js';
 
-const manager = new UsersManager()
+const manager = new UsersManager('./data/users.json')
 const app = express();
 // Middleware -> Lo tratamos en las proximas clases
 app.use( express.json());
@@ -25,7 +25,8 @@ const users = [
   }
 ]
 // Retornamos todos lo usuarios
-app.get('/api/users', (req, res) => {
+app.get('/api/users', async (req, res) => {
+    const users = await manager.getUsers();
     res.json({ status: 'success', data: users})
 })
 
@@ -47,16 +48,11 @@ app.get('/api/users/:id', (req, res) => {
 })
 
 // Guardamos un usuario
-app.post('/api/users', (req, res) => {
-    const {name, email} = req.body;
+app.post('/api/users',  async (req, res) => {
+    const {name, email, password} = req.body;
+    const data = await manager.createUser({ name, email, password})
 
-    const id =  users.length + 1;
-    users.push({
-        id,
-        name,
-        email
-    })
-    res.json({ status: 'success', data: {id}})
+    res.json({ status: 'success', data})
 })
 
 // Eliminamos un usuario
