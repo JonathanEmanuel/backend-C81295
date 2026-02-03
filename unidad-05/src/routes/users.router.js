@@ -3,11 +3,7 @@ import UsersManager from '../UsersManager.js';
 import { uploader } from '../utils/utils.js';
 const router = express.Router();
 
-
-
 const manager = new UsersManager('./data/users.json');
-
-
 
 // Retornamos todos lo usuarios
 router.get('/', async (req, res) => {
@@ -39,7 +35,7 @@ router.post('/', uploader.single('file'),  async (req, res) => {
         return res.status(400).json({ status: 'error', error: 'No se se guardo el archivo'})
     }
 
-    console.log( req.file )
+    //console.log( req.file )
     const avatar = req.file.path;
 
     const {name, email, password} = req.body;
