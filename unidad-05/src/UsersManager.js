@@ -18,7 +18,7 @@ class UsersManager {
     async createUser(user) {
         await this.init();
 
-        const { name, email, password, role='client' } = user;
+        const { name, email, password, avatar, role='client' } = user;
         // Validamos campos obligatorios
         if( !name || !email || !password) {
             throw new Error('name, email y password son Obligatorios');
@@ -36,6 +36,7 @@ class UsersManager {
             name,
             email,
             password: passwordHash,
+            avatar,
             role
         }
         this.users.push(newUser);
