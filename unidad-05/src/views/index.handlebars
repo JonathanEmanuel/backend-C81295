@@ -1,3 +1,28 @@
 <div>
-    <h1> Bienvenido {{ name }} 👋</h1>
+    <h1> Bienvenido {{user.name}} 👋</h1>
+    <hr>
+
+    {{#if user.isAdmin}}
+    <section>
+        <h4>Sección de Admin</h4>
+        <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium culpa deserunt aut id numquam amet consectetur reprehenderit, beatae at fuga repellat? Accusantium consequuntur accusamus praesentium dignissimos exercitationem omnis perspiciatis sapiente!
+        </p>
+        <form action="/api/users">
+            <label for="">Campo 1</label>
+            <input type="text">
+            <button type="submit">Publicar</button>
+        </form>
+    </section>
+    {{else}}
+    <strong>No sos Admin</strong>
+    {{/if}}
+
+    <ul>
+
+    {{#each products}}
+        <li> {{this.title}} - ${{this.price}} </li>
+    {{/each}}
+    </ul>
+
 </div>
