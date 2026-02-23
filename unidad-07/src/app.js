@@ -5,9 +5,6 @@ import { fileURLToPath } from 'url'
 import viewsRouter from './routes/views.router.js'
 
 import { Server } from 'socket.io'
-import { Socket } from 'dgram';
-
-
 
 const __filename = fileURLToPath( import.meta.url);
 const __dirname = path.dirname( __filename);
