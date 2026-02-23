@@ -3,7 +3,6 @@ import handlebars from 'express-handlebars'
 import usersRouter from './routes/users.router.js'
 import path from 'path'
 import { fileURLToPath} from 'url'
-import { title } from 'process'
 
 const __filename = fileURLToPath( import.meta.url);
 const __dirname = path.dirname( __filename);
@@ -40,7 +39,13 @@ app.get('/home', (req, res) => {
     res.render('index', data)
 })
 
-app.use('/api/users', usersRouter);
+app.get('users',(req, res) => {
+    
+} )
+
+
+app.use('/api/users',  usersRouter);
+
 
 
 
