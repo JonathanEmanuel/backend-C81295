@@ -8,9 +8,8 @@ const collection = () => {
 
 // Retornamos todos lo usuarios
 router.get('/', async (req, res) => {
-console.log(collection)
-   
-    const students = await collection.find().toArray();
+        
+    const students = await collection().find().toArray();
     console.log(students)
     res.json({ status: 'success', payload: students})
 })
