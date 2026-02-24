@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "name": "Juan",
+        "edad": 27,
+        "status": true,
+        "created": "23-02-25"
+    },
+    {
+        "id": 2,
+        "name": "Julia",
+        "edad": 29,
+        "status": false,
+        "temp": 31.2
+    },
+    {
+        "id": 3,
+        "name": "Marcos",
+        "edad": 25,
+        "status": false,
+        "pics": [
+            { "id": 1, "url": "foto1.jpg"},
+            { "id": 2, "url": "foto2.jpg"}
+        ]
+    }
+]
