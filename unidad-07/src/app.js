@@ -3,7 +3,7 @@ import handlebars from 'express-handlebars';
 import path from 'path'
 import { fileURLToPath } from 'url'
 import viewsRouter from './routes/views.router.js'
-
+import userRouter from './routes/users.router.js';
 import { Server } from 'socket.io'
 
 import { connectMongo } from './db/mongo.js';
@@ -22,9 +22,10 @@ app.set('views', path.join(__dirname, 'views' ) );
 app.set('view engine', 'handlebars');
 
 app.use( '/', express.static('public') );
-
-
 app.use('/', viewsRouter);
+
+
+app.use('/api/users', userRouter);
 
 const httpServer = app.listen(PORT, () => { console.log(`Servidor con Express en el puerto ${PORT}`) })
 

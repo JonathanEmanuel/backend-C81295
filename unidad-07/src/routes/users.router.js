@@ -1,14 +1,18 @@
 import express from 'express'
-import UsersManager from '../UsersManager.js';
-import { uploader } from '../utils/utils.js';
+import { getDb } from '../db/mongo.js';
 const router = express.Router();
 
-const manager = new UsersManager('./data/users.json');
+const collection = () => { 
+    return getDb().collection('estudiantes'); 
+}
 
 // Retornamos todos lo usuarios
 router.get('/', async (req, res) => {
-    const users = await manager.getUsers();
-    res.json({ status: 'success', data: users})
+console.log(collection)
+   
+    const students = await collection.find().toArray();
+    console.log(students)
+    res.json({ status: 'success', payload: students})
 })
 
 // Retornamos un usuario por id -> Falta implementar
@@ -29,7 +33,7 @@ router.get('/:id', (req, res) => {
 })
 
 // Guardamos un usuario
-router.post('/', uploader.single('file'),  async (req, res) => {
+router.post('/',  async (req, res) => {
     
     if( !req.file){
         return res.status(400).json({ status: 'error', error: 'No se se guardo el archivo'})

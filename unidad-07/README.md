@@ -8,7 +8,12 @@
 - Comprender las diferencias entre bases de datos relacionales y no relacionales.
 
 
-URI_DB= mongodb://localhost:27017
+> URI_DB= mongodb://localhost:27017
+```bash
+    npm i mongodb
+```
+
+
 
 ```sql
 SELECT *

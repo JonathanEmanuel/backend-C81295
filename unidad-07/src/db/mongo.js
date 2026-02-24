@@ -2,7 +2,7 @@ import { MongoClient } from 'mongodb'
 
 let db;
 
-export const connectMongo = async (uri, dbName) => {
+export async function connectMongo (uri, dbName)  {
     try {
         const client = new MongoClient(uri);
         await client.connect();
@@ -14,4 +14,6 @@ export const connectMongo = async (uri, dbName) => {
     }
 }
 
-export const getDb = () => db; 
+export function getDb() {
+    return db;
+}
