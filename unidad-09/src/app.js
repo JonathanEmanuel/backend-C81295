@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 
 import usersRouter from './routes/users.router.js'
 import courseRouter from './routes/course.router.js'
+import ordersRouter from './routes/orders.router.js'
 const PORT =  5000;
 const URI_DB = 'mongodb://localhost:27017/c81295';
 
@@ -18,6 +19,7 @@ app.use(express.json());
 
 app.use('/api/users', usersRouter);
 app.use('/api/course', courseRouter);
+app.use('/api/orders', ordersRouter)
 
 app.listen( PORT, () => {
     console.log(`Servidor Web en el puerto ${PORT}`);

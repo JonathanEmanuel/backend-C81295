@@ -110,7 +110,37 @@ router.delete('/:id', async (req, res) => {
    
 })
 
+router.post('/:id/course', async( req, res) => {
+     try {
+        const { id } = req.params;
+        const { course } = req.body;
 
+        const user = await userModel.findById(id);
+        user.courses.push({
+            course: course
+        })
 
+        const result = await userModel.findByIdAndUpdate( id, user )
+        res.json({ status: 'success', payload: result})
+        
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ status: 'error', msg: 'Error del servidor al actualizar el usuario'});
+    }
+})
+
+router.get('/:id/course', async( req, res) => {
+    try {
+        const { id} = req.params;
+        
+        const result = await userModel.findById(id).populate('courses.course');
+        console.log(result);
+        res.json({ status: 'success', payload: result})
+        
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ status: 'error', msg: 'Error del servidor obtener los cursos el usuario'});
+    }
+})
 
 export default router
